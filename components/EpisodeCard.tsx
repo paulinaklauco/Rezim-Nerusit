@@ -103,6 +103,7 @@ export default function EpisodeCard({ guestName, description, embedUrl }: Episod
           {guestName}
         </div>
         <p
+          className="episode-card-desc"
           style={{
             fontFamily: 'var(--font-poppins)',
             fontSize: '25px',
