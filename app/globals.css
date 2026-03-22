@@ -1,0 +1,374 @@
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vw;
+  min-height: 280px;
+  overflow: hidden;
+}
+
+@media (min-width: 769px) {
+  .hero {
+    height: 100vh;
+    min-height: 520px;
+  }
+}
+
+.hero + section {
+  position: relative;
+  margin-top: 0;
+}
+
+.ticker {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.hero + * {
+  margin-top: 0;
+}
+
+.emoji-ticker {
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  padding: 20px 0 60px 0;
+}
+
+.emoji-track {
+  display: flex;
+  gap: 80px;
+  width: max-content;
+  animation: scrollEmoji 25s linear infinite;
+}
+
+.emoji-track img {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  filter: brightness(0) saturate(100%) invert(87%) sepia(21%) saturate(427%) hue-rotate(290deg) brightness(103%) contrast(101%);
+}
+
+@keyframes scrollEmoji {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-1000px); }
+}
+
+.hero-logo {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 650px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.hero-image img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100vh;
+  width: auto;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  transition: transform 0.2s ease;
+}
+
+.header-item svg {
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+.header-item:hover {
+  transform: scale(1.05);
+}
+
+.header-icons .header-item:hover {
+  transform: scale(1.12);
+}
+
+.header-item:active {
+  transform: scale(0.98);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #8B000F;
+    color: #F9F6F8;
+    font-family: var(--font-poppins);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #E6B6D3;
+    color: #6E000C;
+  }
+}
+
+/* Dynamic emoji float */
+@keyframes emojiFloat {
+  from { transform: scale(1) translateY(0); }
+  to   { transform: scale(1) translateY(var(--emoji-dy, -8px)); }
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #690202;
+}
+
+/* =====================
+   RESPONSIVE SYSTEM
+   ===================== */
+
+/* Inner containers — horizontal padding on tablet/mobile */
+.rn-container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (max-width: 1280px) {
+  .rn-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rn-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Prevent any element from overflowing horizontally */
+  section {
+    overflow-x: hidden;
+  }
+
+  /* Consistent section vertical spacing — hero exempt */
+  section:not(.hero-section) {
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+  }
+
+  /* Hero: no override */
+  .hero-section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+
+  /* Nav */
+  .rn-nav-inner {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Hero logo smaller */
+  .hero-logo {
+    width: 220px !important;
+  }
+
+  /* Hero image fills the 100vw-tall hero container on mobile */
+  .hero-image img {
+    height: 100% !important;
+  }
+
+  /* Ticker is absolute on mobile — no padding needed */
+  .emoji-ticker {
+    padding: 0 !important;
+  }
+
+
+  /* Merch mobile stacking order: title → image → text */
+  .merch-text-block {
+    order: 2;
+  }
+  .merch-product-card {
+    order: 1;
+  }
+
+  /* Podcast intro */
+  .podcast-intro-wrapper {
+    width: 100% !important;
+  }
+  .podcast-intro-card {
+    height: auto !important;
+    padding: 32px 20px !important;
+  }
+  .podcast-intro-text {
+    margin-left: 0 !important;
+  }
+  .podcast-intro-image {
+    display: none !important;
+  }
+
+  /* Episode card */
+  .episode-card {
+    width: 100% !important;
+    height: auto !important;
+    flex-direction: column !important;
+  }
+  .episode-card-video {
+    width: 100% !important;
+    height: 200px !important;
+    flex-shrink: unset !important;
+  }
+  .episode-card-heading {
+    font-size: 44px !important;
+  }
+  .episode-card-desc {
+    font-size: 17px !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Merch */
+  .merch-heading {
+    font-size: 72px !important;
+  }
+  .merch-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .merch-subheading {
+    font-size: 52px !important;
+  }
+  .merch-product-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 340px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Waitlist — fix overflow */
+  .waitlist-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    padding: 32px 20px !important;
+    box-sizing: border-box !important;
+  }
+  .waitlist-title-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+  }
+  .waitlist-star {
+    width: 64px !important;
+    height: 64px !important;
+    transform: none !important;
+  }
+  .waitlist-heading {
+    font-size: 44px !important;
+    line-height: 1.05 !important;
+  }
+  .waitlist-input-row {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Instagram — horizontal scroll strip */
+  .ig-heading {
+    font-size: 56px !important;
+    margin-bottom: 20px !important;
+  }
+  .ig-cards-row {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    justify-content: flex-start !important;
+    padding: 0 16px 4px !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .ig-cards-row::-webkit-scrollbar {
+    display: none;
+  }
+  .ig-card {
+    flex-shrink: 0 !important;
+    width: 180px !important;
+    height: 225px !important;
+  }
+
+  /* Merch → Waitlist tight connection on mobile */
+  #merch {
+    padding-bottom: 16px !important;
+  }
+  #waitlist {
+    padding-top: 16px !important;
+  }
+
+  /* Footer */
+  .footer-inner {
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+  .footer-brand {
+    max-width: 100% !important;
+  }
+  .footer-icons-grid {
+    margin-left: 0 !important;
+    gap: 20px 28px !important;
+  }
+  .footer-legal {
+    font-size: 13px !important;
+  }
+}
+
+@layer utilities {
+  .font-weight-regular {
+    font-weight: 400;
+  }
+  .font-weight-medium {
+    font-weight: 500;
+  }
+  .font-weight-semibold {
+    font-weight: 600;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
